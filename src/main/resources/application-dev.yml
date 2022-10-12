@@ -1,0 +1,23 @@
+server:
+  port: 8088
+
+spring:
+  datasource:
+    username: java_test
+    password: java_test
+    url: jdbc:mysql://192.168.1.152:3306/lwj_beta?useSSL=false&serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=UTF-8
+    driver-class-name: com.mysql.jdbc.Driver
+
+mybatis:
+  mapper-locations: classpath:mapper/*Mapper.xml
+  type-aliases-package: com.area.demo.model
+  configuration:
+    mapUnderscoreToCamelCase: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+#showSql
+logging:
+  level:
+    com:
+      example:
+        mapper : debug

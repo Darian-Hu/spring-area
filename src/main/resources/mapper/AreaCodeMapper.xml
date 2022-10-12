@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.area.demo.dao.AreaCodeMapper" >
+  <resultMap id="BaseResultMap" type="com.area.demo.model.AreaCode" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="code" property="code" jdbcType="DECIMAL" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="parent_id" property="parentId" jdbcType="DECIMAL" />
+    <result column="province_id" property="provinceId" jdbcType="DECIMAL" />
+    <result column="city_id" property="cityId" jdbcType="DECIMAL" />
+    <result column="county_id" property="countyId" jdbcType="DECIMAL" />
+    <result column="town_id" property="townId" jdbcType="DECIMAL" />
+    <result column="village_id" property="villageId" jdbcType="DECIMAL" />
+    <result column="full_name" property="fullName" jdbcType="VARCHAR" />
+    <result column="area_level" property="areaLevel" jdbcType="INTEGER" />
+    <result column="data_url" property="dataUrl" jdbcType="VARCHAR" />
+    <result column="zip_code" property="zipCode" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, code, name, parent_id, province_id, city_id, county_id, town_id, village_id, 
+    full_name, area_level, data_url, zip_code
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.area.demo.model.AreaCodeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from sys_areacode
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_areacode
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_areacode
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.area.demo.model.AreaCodeExample" >
+    delete from sys_areacode
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.area.demo.model.AreaCode" >
+    insert into sys_areacode (id, code, name, 
+      parent_id, province_id, city_id, 
+      county_id, town_id, village_id, 
+      full_name, area_level, data_url, 
+      zip_code)
+    values (#{id,jdbcType=INTEGER}, #{code,jdbcType=DECIMAL}, #{name,jdbcType=VARCHAR}, 
+      #{parentId,jdbcType=DECIMAL}, #{provinceId,jdbcType=DECIMAL}, #{cityId,jdbcType=DECIMAL}, 
+      #{countyId,jdbcType=DECIMAL}, #{townId,jdbcType=DECIMAL}, #{villageId,jdbcType=DECIMAL}, 
+      #{fullName,jdbcType=VARCHAR}, #{areaLevel,jdbcType=INTEGER}, #{dataUrl,jdbcType=VARCHAR}, 
+      #{zipCode,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.area.demo.model.AreaCode" >
+    insert into sys_areacode
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="parentId != null" >
+        parent_id,
+      </if>
+      <if test="provinceId != null" >
+        province_id,
+      </if>
+      <if test="cityId != null" >
+        city_id,
+      </if>
+      <if test="countyId != null" >
+        county_id,
+      </if>
+      <if test="townId != null" >
+        town_id,
+      </if>
+      <if test="villageId != null" >
+        village_id,
+      </if>
+      <if test="fullName != null" >
+        full_name,
+      </if>
+      <if test="areaLevel != null" >
+        area_level,
+      </if>
+      <if test="dataUrl != null" >
+        data_url,
+      </if>
+      <if test="zipCode != null" >
+        zip_code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=DECIMAL},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=DECIMAL},
+      </if>
+      <if test="provinceId != null" >
+        #{provinceId,jdbcType=DECIMAL},
+      </if>
+      <if test="cityId != null" >
+        #{cityId,jdbcType=DECIMAL},
+      </if>
+      <if test="countyId != null" >
+        #{countyId,jdbcType=DECIMAL},
+      </if>
+      <if test="townId != null" >
+        #{townId,jdbcType=DECIMAL},
+      </if>
+      <if test="villageId != null" >
+        #{villageId,jdbcType=DECIMAL},
+      </if>
+      <if test="fullName != null" >
+        #{fullName,jdbcType=VARCHAR},
+      </if>
+      <if test="areaLevel != null" >
+        #{areaLevel,jdbcType=INTEGER},
+      </if>
+      <if test="dataUrl != null" >
+        #{dataUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="zipCode != null" >
+        #{zipCode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.area.demo.model.AreaCode" >
+    update sys_areacode
+    <set >
+      <if test="code != null" >
+        code = #{code,jdbcType=DECIMAL},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        parent_id = #{parentId,jdbcType=DECIMAL},
+      </if>
+      <if test="provinceId != null" >
+        province_id = #{provinceId,jdbcType=DECIMAL},
+      </if>
+      <if test="cityId != null" >
+        city_id = #{cityId,jdbcType=DECIMAL},
+      </if>
+      <if test="countyId != null" >
+        county_id = #{countyId,jdbcType=DECIMAL},
+      </if>
+      <if test="townId != null" >
+        town_id = #{townId,jdbcType=DECIMAL},
+      </if>
+      <if test="villageId != null" >
+        village_id = #{villageId,jdbcType=DECIMAL},
+      </if>
+      <if test="fullName != null" >
+        full_name = #{fullName,jdbcType=VARCHAR},
+      </if>
+      <if test="areaLevel != null" >
+        area_level = #{areaLevel,jdbcType=INTEGER},
+      </if>
+      <if test="dataUrl != null" >
+        data_url = #{dataUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="zipCode != null" >
+        zip_code = #{zipCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.area.demo.model.AreaCode" >
+    update sys_areacode
+    set code = #{code,jdbcType=DECIMAL},
+      name = #{name,jdbcType=VARCHAR},
+      parent_id = #{parentId,jdbcType=DECIMAL},
+      province_id = #{provinceId,jdbcType=DECIMAL},
+      city_id = #{cityId,jdbcType=DECIMAL},
+      county_id = #{countyId,jdbcType=DECIMAL},
+      town_id = #{townId,jdbcType=DECIMAL},
+      village_id = #{villageId,jdbcType=DECIMAL},
+      full_name = #{fullName,jdbcType=VARCHAR},
+      area_level = #{areaLevel,jdbcType=INTEGER},
+      data_url = #{dataUrl,jdbcType=VARCHAR},
+      zip_code = #{zipCode,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
